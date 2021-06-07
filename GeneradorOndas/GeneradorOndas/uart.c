@@ -36,7 +36,6 @@ Compilacion condicional
 
 */
 
-//Agregar "eco" para debuguear -> booleana en el init "ecoEnabled"
 void UART_Init(uint8_t baud_rate,uint8_t TxEnable,uint8_t RxEnable){
 	// config = 0x33 ==> Configuro UART 9600bps, 8 bit data, 1 stop @ F_CPU = 8MHz.
 	// config = 0x25 ==> Configuro UART 9600bps, 8 bit data, 1 stop @ F_CPU = 4Hz.
