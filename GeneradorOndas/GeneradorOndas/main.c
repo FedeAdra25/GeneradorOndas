@@ -21,7 +21,7 @@ int main(void)
 	
     while (1) 
     {
-		if(UART_HayString()){
+		if(UART_HayString()){ //flag de la UART de \r
 			command = SGEN_Decode(UART_GetString()); //returns number
 		}
 		//Comportamiento si dio error o se reinicio
@@ -32,7 +32,5 @@ int main(void)
 		else if (command==SGEN_RESET){
 			//restart and print welcome msj
 		}
-		
-		
     }
 }

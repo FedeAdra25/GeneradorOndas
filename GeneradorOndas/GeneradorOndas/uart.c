@@ -15,13 +15,28 @@ static unsigned char TXindice_lectura=0, TXindice_escritura=0;
 static unsigned char RX_Index=0;
 static unsigned char TX_Buffer[TX_BUFFER_LENGTH];
 static unsigned char RX_Buffer[RX_BUFFER_LENGTH];
+
+#ifdef ECO_DEBUG
 volatile unsigned char eco=0;
+#endif
+
 volatile unsigned char imprimiendoMensaje=0;
 volatile unsigned char flag_hayString=0;
 static ERROR_CODES Error_code;
 
+/*
+Compilacion condicional
 
 
+#ifdef ECO_DEBUG
+	printEcho(); -> solo si esta definido ECO_DEBUG
+#else
+	//nada
+#endif
+
+*/
+
+//Agregar "eco" para debuguear -> booleana en el init "ecoEnabled"
 void UART_Init(uint8_t baud_rate,uint8_t TxEnable,uint8_t RxEnable){
 	// config = 0x33 ==> Configuro UART 9600bps, 8 bit data, 1 stop @ F_CPU = 8MHz.
 	// config = 0x25 ==> Configuro UART 9600bps, 8 bit data, 1 stop @ F_CPU = 4Hz.
@@ -75,7 +90,7 @@ void UART_Write_Char_To_Buffer(const char data)
 	}
 	else
 	{
-		// Write buffer is full
+		// Write buffer is full --> TO-DO checkeo del error
 		Error_code= ERROR_UART_FULL_BUFF;
 	}
 }
@@ -100,8 +115,10 @@ ISR (USART_RX_vect){
 	volatile unsigned char dato=UDR0;
 	if(dato!='\r'){
 		RX_Buffer[RX_Index++%RX_BUFFER_LENGTH] = dato;
+		#ifdef ECO_DEBUG
 		eco=1;
 		SerialPort_TX_Interrupt_Enable();
+		#endif
 	}
 	else{
 		RX_Buffer[RX_Index++]='\0';
@@ -112,12 +129,14 @@ ISR (USART_RX_vect){
 }
 
 ISR(USART_UDRE_vect){
+	#ifdef ECO_DEBUG
 	if(eco){
 		SerialPort_Send_Data(RX_Buffer[(RX_Index-1)%RX_BUFFER_LENGTH]);
 		eco=0;
 		SerialPort_TX_Interrupt_Disable();
 	}
-	else if(imprimiendoMensaje){
+	#endif
+	if(imprimiendoMensaje){
 		if(TXindice_lectura<TXindice_escritura){
 			SerialPort_Send_Data(TX_Buffer[TXindice_lectura++]);		
 		}

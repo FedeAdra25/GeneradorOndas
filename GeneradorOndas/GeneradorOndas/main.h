@@ -12,6 +12,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "sgen.h"
+//#define ECO_DEBUG //Descomentar para activar eco en consola
 #include "uart.h"
 
 #define BAUD_RATE 0x33
