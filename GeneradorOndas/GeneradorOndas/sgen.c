@@ -39,13 +39,13 @@ uint8_t SGEN_Decode(char* command){
 	
 	SGEN_Cleanup(command); //Limpio los backslash por si el usuario se confundio al escribir (ej: "OM\bN" se ve como un ON)
 	
-	if(strcmp(command,"ON")){
+	if(strcmp(command,"ON\0") ==0){
 		SGEN_TurnOn();
 	}
-	else if(strcmp(command,"OFF")){
+	else if(strcmp(command,"OFF\0") ==0) {
 		SGEN_TurnOff();
 	}
-	else if(strcmp(command,"RST")){
+	else if(strcmp(command,"RST\0") ==0){
 		SGEN_RST();
 		return SGEN_RESET;
 	}
@@ -65,16 +65,19 @@ uint8_t SGEN_Decode(char* command){
 //turns on generator
 static void SGEN_TurnOn(){
 	//TO DO
+	UART_PrintString("La maquina se prendio bien culiado");
 }
 
 //turns off generator
 static void SGEN_TurnOff(){
 	//TO DO
+	UART_PrintString("La maquina se apago bien culiado");
 }
 
 //restarts program
 static void SGEN_RST(){
 	//TO DO
+	UART_PrintString("La maquina se reseteo bien culiado");
 }
 
 //sets the frequency
