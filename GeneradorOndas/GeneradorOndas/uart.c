@@ -14,7 +14,7 @@
 static unsigned char TXindice_lectura=0, TXindice_escritura=0;
 static unsigned char RX_Index=0;
 static unsigned char TX_Buffer[TX_BUFFER_LENGTH];
-static unsigned char RX_Buffer[RX_BUFFER_LENGTH];
+static  unsigned char RX_Buffer[RX_BUFFER_LENGTH];
 
 #ifdef ECO_DEBUG
 volatile unsigned char eco=0;
@@ -94,8 +94,8 @@ void UART_Write_Char_To_Buffer(const char data)
 	}
 }
 
-char* UART_GetString(){
-	char* ret;
+ char* UART_GetString(){
+	 char* ret;
 	strcpy(ret,RX_Buffer);
 	return ret;
 }
