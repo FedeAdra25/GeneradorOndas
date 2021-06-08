@@ -97,7 +97,7 @@ void UART_Write_Char_To_Buffer(const char data)
 char* UART_GetString(){
 	char* ret;
 	strcpy(ret,RX_Buffer);
-	return RX_Buffer;
+	return ret;
 }
 
 unsigned char UART_HayString(){

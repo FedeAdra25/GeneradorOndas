@@ -22,15 +22,17 @@ int main(void)
     while (1) 
     {
 		if(UART_HayString()){ //flag de la UART de \r
-			command = SGEN_Decode(UART_GetString()); //returns number
+			command = SGEN_Decode(UART_GetString()); //returns number of error
 		}
 		//Comportamiento si dio error o se reinicio
 		if(command==SGEN_ERROR){
 			UART_PrintString(errorMsj);
 			//print error msj
+			command=0;
 		}
 		else if (command==SGEN_RESET){
 			//restart and print welcome msj
+			command=0;
 		}
     }
 }

@@ -6,6 +6,7 @@
  */ 
 
 #include <string.h>
+#include <stdlib.h>
 #include <avr/io.h>
 #include "sgen.h"
 
@@ -38,13 +39,13 @@ uint8_t SGEN_Decode(char* command){
 	
 	SGEN_Cleanup(command); //Limpio los backslash por si el usuario se confundio al escribir (ej: "OM\bN" se ve como un ON)
 	
-	if(strcmp(command,'ON')){
+	if(strcmp(command,"ON")){
 		SGEN_TurnOn();
 	}
-	else if(strcmp(command,'OFF')){
+	else if(strcmp(command,"OFF")){
 		SGEN_TurnOff();
 	}
-	else if(strcmp(command,'RST')){
+	else if(strcmp(command,"RST")){
 		SGEN_RST();
 		return SGEN_RESET;
 	}
@@ -53,7 +54,8 @@ uint8_t SGEN_Decode(char* command){
 	}
 	else{
 		return SGEN_ERROR;
-	}	
+	}
+	return SGEN_SUCCESS;
 }
 
 

@@ -9,6 +9,7 @@
 #ifndef SGEN_H_
 #define SGEN_H_
 
+#define SGEN_SUCCESS 0
 #define SGEN_ERROR 53
 #define SGEN_RESET 69
 #define SGEN_STARTUP_FREQ 100
