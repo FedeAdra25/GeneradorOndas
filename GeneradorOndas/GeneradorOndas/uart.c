@@ -9,6 +9,7 @@
 #include "serialPort.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stdlib.h>
 #include <string.h>
 
 static unsigned char TXindice_lectura=0, TXindice_escritura=0;
@@ -95,7 +96,7 @@ void UART_Write_Char_To_Buffer(const char data)
 }
 
  char* UART_GetString(){
-	 char* ret;
+	char* ret = (char*) malloc(strlen(RX_Buffer)* sizeof(char));
 	strcpy(ret,RX_Buffer);
 	return ret;
 }

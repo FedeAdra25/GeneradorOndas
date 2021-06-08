@@ -16,7 +16,6 @@
 //Returns 5 if restart
 
 static uint16_t frq = SGEN_STARTUP_FREQ;
-
 //turns on generator
 static void SGEN_TurnOn();
 //turns off generator
@@ -38,14 +37,13 @@ void SGEN_Init(){
 uint8_t SGEN_Decode(char* command){
 	
 	SGEN_Cleanup(command); //Limpio los backslash por si el usuario se confundio al escribir (ej: "OM\bN" se ve como un ON)
-	
-	if(strcmp(command,"ON\0") ==0){
+	if(strcmp(command,"ON") ==0){
 		SGEN_TurnOn();
 	}
-	else if(strcmp(command,"OFF\0") ==0) {
+	else if(strcmp(command,"OFF") ==0) {
 		SGEN_TurnOff();
 	}
-	else if(strcmp(command,"RST\0") ==0){
+	else if(strcmp(command,"RST") ==0){
 		SGEN_RST();
 		return SGEN_RESET;
 	}
