@@ -8,5 +8,7 @@ serialPort.c
 
 sgen.c
 
+timerconfig.c
+
 uart.c
 

@@ -11,7 +11,7 @@ main.d main.o: .././main.c .././main.h \
  h:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  h:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
  h:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././sgen.h .././uart.h
+ .././sgen.h .././uart.h .././timerconfig.h
 
 .././main.h:
 
@@ -42,3 +42,5 @@ h:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 .././sgen.h:
 
 .././uart.h:
+
+.././timerconfig.h:

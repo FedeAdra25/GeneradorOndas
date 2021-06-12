@@ -14,8 +14,9 @@
 
 static unsigned char TXindice_lectura=0, TXindice_escritura=0;
 static unsigned char RX_Index=0;
-static unsigned char TX_Buffer[TX_BUFFER_LENGTH];
-static  unsigned char RX_Buffer[RX_BUFFER_LENGTH];
+static char TX_Buffer[TX_BUFFER_LENGTH];
+static char RX_Buffer[RX_BUFFER_LENGTH];
+static char RX_Buf_Cpy[RX_BUFFER_LENGTH]; //copia de rx buffer para enviar a quienes pidan el buffer
 
 #ifdef ECO_DEBUG
 volatile unsigned char eco=0;
@@ -27,14 +28,11 @@ static ERROR_CODES Error_code;
 
 /*
 Compilacion condicional
-
-
 #ifdef ECO_DEBUG
 	printEcho(); -> solo si esta definido ECO_DEBUG
 #else
 	//nada
 #endif
-
 */
 
 void UART_Init(uint8_t baud_rate,uint8_t TxEnable,uint8_t RxEnable){
@@ -48,7 +46,7 @@ void UART_Init(uint8_t baud_rate,uint8_t TxEnable,uint8_t RxEnable){
 	if(RxEnable){
 		SerialPort_RX_Enable();
 	}
-	SerialPort_RX_Interrupt_Enable();
+	SerialPort_RX_Interrupt_Enable();	
 }
 
 /*
@@ -96,9 +94,8 @@ void UART_Write_Char_To_Buffer(const char data)
 }
 
  char* UART_GetString(){
-	char* ret = (char*) malloc(strlen(RX_Buffer)* sizeof(char));
-	strcpy(ret,RX_Buffer);
-	return ret;
+	strcpy(RX_Buf_Cpy,RX_Buffer);
+	return RX_Buf_Cpy; //envio la copia del buffer
 }
 
 unsigned char UART_HayString(){
@@ -112,7 +109,7 @@ unsigned char UART_HayString(){
 }
 
 ISR (USART_RX_vect){
-	volatile unsigned char dato=UDR0;
+	volatile unsigned char dato=SerialPort_Recive_Data();
 	if(dato!='\r'){
 		RX_Buffer[RX_Index++%RX_BUFFER_LENGTH] = dato;
 		#ifdef ECO_DEBUG
@@ -123,7 +120,9 @@ ISR (USART_RX_vect){
 	else{
 		RX_Buffer[RX_Index++]='\0';
 		RX_Index=0;
+		#ifdef ECO_DEBUG
 		UART_PrintString("\n\r");
+		#endif
 		flag_hayString=1;
 	}
 }

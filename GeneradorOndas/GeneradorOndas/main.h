@@ -15,7 +15,7 @@
 //#define ECO_DEBUG //Descomentar para activar eco en consola
 #include "uart.h"
 
-#define BAUD_RATE 0x33
+#define BAUD_RATE 0x67 //baud rate 9600bps at 16MHz -> 103
 
 
 #endif /* MAIN_H_ */

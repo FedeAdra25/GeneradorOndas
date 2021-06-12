@@ -9,8 +9,8 @@
 #include "main.h"
 int main(void)
 {
-    char welcomeMsj[] = "Bienvenidx al generador de señales digitales programable\r Por favor, ingrese una frecuencia entre 100 y 10000Hz o un comando\r ON: encender generador(frecuencia por defecto: 100Hz), OFF: apagar generador, RST: reiniciar\r\n";
-	char errorMsj[] = "Lo siento, no he entendido el comando\r\n";
+    char welcomeMsj[] = "Bienvenidx al generador de señales digitales programable\r Por favor, ingrese una frecuencia entre 100 y 10000Hz o un comando\r ON: encender generador(frecuencia por defecto: 100Hz), OFF: apagar generador, RST: reiniciar \r\n";
+	char errorMsj[] = "Lo siento, el comando no es valido\r\n";
 	unsigned char command = 0;
 	
 	UART_Init(BAUD_RATE,1,1); //inicializo la uart
@@ -31,7 +31,7 @@ int main(void)
 			command=0;
 		}
 		else if (command==SGEN_RESET){
-			//restart and print welcome msj
+			UART_PrintString(welcomeMsj);
 			command=0;
 		}
     }

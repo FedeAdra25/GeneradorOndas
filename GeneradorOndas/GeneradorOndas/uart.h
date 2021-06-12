@@ -8,11 +8,11 @@
 
 #ifndef INCFILE1_H_
 #define INCFILE1_H_
-#define TX_BUFFER_LENGTH 225
+#define TX_BUFFER_LENGTH 230
 #define RX_BUFFER_LENGTH 20
 
 
-typedef enum {ERROR_UART_FULL_BUFF} ERROR_CODES;
+typedef enum {ERROR_UART_FULL_BUFF} ERROR_CODES; //verque hacemo con esto
 
 
 unsigned char UART_HayString();

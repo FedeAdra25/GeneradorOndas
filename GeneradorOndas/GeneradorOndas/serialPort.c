@@ -10,6 +10,7 @@
 // Inicialización de Puerto Serie
 
 void SerialPort_Init(uint8_t config){
+	// config = 0x67 ==> Configuro UART 9600bps, 8 bit data, 1 stop @ F_CPU = 16MHz.
 	// config = 0x33 ==> Configuro UART 9600bps, 8 bit data, 1 stop @ F_CPU = 8MHz.
 	// config = 0x25 ==> Configuro UART 9600bps, 8 bit data, 1 stop @ F_CPU = 4Hz.
 	UCSR0B = 0;

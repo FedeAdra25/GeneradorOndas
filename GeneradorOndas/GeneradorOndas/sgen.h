@@ -10,11 +10,12 @@
 #define SGEN_H_
 
 #define SGEN_SUCCESS 0
-#define SGEN_ERROR 53
-#define SGEN_RESET 69
+#define SGEN_ERROR 69
+#define SGEN_RESET 42
 #define SGEN_STARTUP_FREQ 100
+#define SGEN_BASE_FREQ 999999
 #include "uart.h"
-
+#include "timerconfig.h"
 
 void SGEN_Init();
 

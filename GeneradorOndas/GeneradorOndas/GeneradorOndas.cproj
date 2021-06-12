@@ -138,6 +138,12 @@
     <Compile Include="sgen.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="timerconfig.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timerconfig.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="uart.c">
       <SubType>compile</SubType>
     </Compile>
