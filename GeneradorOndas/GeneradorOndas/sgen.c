@@ -86,5 +86,5 @@ static void SGEN_RST(){
 //sets the frequency
 static void SGEN_SetFreq(uint16_t frequency){
 	frq = frequency;
-	TIMERCONFIG_SetTopOnCTC( (SGEN_BASE_FREQ/frq) + 0.5 - 1); //seteo el OCR1A fancy
+	TIMERCONFIG_SetTopOnCTC((uint16_t)((float)SGEN_BASE_FREQ/frq) + 0.5 - 1); //seteo el OCR1A fancy
 }
