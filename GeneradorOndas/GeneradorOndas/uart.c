@@ -6,11 +6,7 @@
  */ 
 
 #include "uart.h"
-#include "serialPort.h"
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <stdlib.h>
-#include <string.h>
+
 
 static unsigned char TXindice_lectura=0, TXindice_escritura=0;
 static unsigned char RX_Index=0;

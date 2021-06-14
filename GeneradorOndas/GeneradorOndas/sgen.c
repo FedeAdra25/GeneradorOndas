@@ -5,13 +5,8 @@
  *  Author: fedea
  */ 
 
-#include <string.h>
-#include <stdlib.h>
-#include <avr/io.h>
+
 #include "sgen.h"
-
-
-
 //Decoder, receives command string
 //Returns 0 on success
 //Returns 69 on error

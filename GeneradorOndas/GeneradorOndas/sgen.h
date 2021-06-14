@@ -8,7 +8,9 @@
 
 #ifndef SGEN_H_
 #define SGEN_H_
-
+#include <string.h>
+#include <stdlib.h>
+#include <avr/io.h>
 #define SGEN_SUCCESS 0
 #define SGEN_ERROR 69
 #define SGEN_RESET 42

@@ -9,13 +9,14 @@
 #ifndef INCFILE1_H_
 #define INCFILE1_H_
 
+#include "serialPort.h"
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <stdlib.h>
+#include <string.h>
 #define TX_BUFFER_LENGTH 230
 #define RX_BUFFER_LENGTH 20
-
-
 typedef enum {ERROR_UART_FULL_BUFF, ERROR_UART_PARITY, ERROR_UART_NONE} ERROR_CODES; //verque hacemo con esto
-
-
 unsigned char UART_HayString();
 char* UART_GetString();
 void UART_PrintString(const char*); //Prints String
