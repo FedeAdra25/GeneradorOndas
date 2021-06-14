@@ -17,7 +17,6 @@
 //Returns 69 on error
 //Returns 42 on restart
 static unsigned short frq = SGEN_STARTUP_FREQ;
-static const uint32_t BASE_FRQ = SGEN_BASE_FREQ;
 //turns on generator
 static void SGEN_TurnOn();
 //turns off generator
@@ -28,8 +27,7 @@ static void SGEN_RST();
 static void SGEN_SetFreq(uint16_t frequency);
 
 
-//Function for cleaning string
-static void SGEN_Cleanup(char*);
+
 
 void SGEN_Init(){
 	//Inicializar signal generator
@@ -43,7 +41,6 @@ void SGEN_Init(){
 
 uint8_t SGEN_Decode(char* command){
 	
-	SGEN_Cleanup(command); //Limpio los backslash por si el usuario se confundio al escribir (ej: "OM\bN" se ve como un ON)
 	if(strcmp(command,"ON")==0){
 		SGEN_TurnOn();
 	}
@@ -69,35 +66,25 @@ uint8_t SGEN_Decode(char* command){
 
 //turns on generator
 static void SGEN_TurnOn(){
-	//TO DO
-	//UART_PrintString("La maquina se prendio bien culiado");
+	//UART_PrintString("La maquina se prendio bien");
 	TIMERCONFIG_ActivateToggle(); //activo el toggle
 }
 
 //turns off generator
 static void SGEN_TurnOff(){
-	//TO DO
-	//UART_PrintString("La maquina se apago bien culiado");
+	//UART_PrintString("La maquina se apago bien");
 	TIMERCONFIG_DeactivateToggle();
 }
 
 //restarts program
 static void SGEN_RST(){
-	//TO DO
-	//UART_PrintString("La maquina se reseteo bien culiados");
+	//UART_PrintString("La maquina se reseteo bien");
 	SGEN_Init();
-	SGEN_TurnOff();
-	
+	SGEN_TurnOff();	
 }
 
 //sets the frequency
 static void SGEN_SetFreq(uint16_t frequency){
 	frq = frequency;
-	TIMERCONFIG_SetOCR1A( (BASE_FRQ/frq) + 0.5 ); //seteo el OCR1A fancy
-	//TODO
-}
-
-//Cleans backspaces
-static void SGEN_Cleanup(char* str){
-	//TODO
+	TIMERCONFIG_SetTopOnCTC( (SGEN_BASE_FREQ/frq) + 0.5 - 1); //seteo el OCR1A fancy
 }

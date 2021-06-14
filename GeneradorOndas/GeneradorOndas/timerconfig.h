@@ -17,6 +17,6 @@
 void TIMERCONFIG_Init(uint8_t,uint8_t);
 void TIMERCONFIG_ActivateToggle();
 void TIMERCONFIG_DeactivateToggle();
-void TIMERCONFIG_SetOCR1A(uint16_t);
+void TIMERCONFIG_SetTopOnCTC(uint16_t);
 
 #endif /* TIMERCONFIG_H_ */

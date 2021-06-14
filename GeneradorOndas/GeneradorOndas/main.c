@@ -23,16 +23,19 @@ int main(void)
     {
 		if(UART_HayString()){ //flag de la UART de \r
 			command = SGEN_Decode(UART_GetString()); //returns number of error
-		}
-		//Comportamiento si dio error o se reinicio
-		if(command==SGEN_ERROR){
-			UART_PrintString(errorMsj);
-			//print error msj
-			command=0;
-		}
-		else if (command==SGEN_RESET){
-			UART_PrintString(welcomeMsj);
-			command=0;
+			//Comportamiento si dio error o se reinicio
+			if(command==SGEN_SUCCESS){
+				continue;
+			}
+			else if(command==SGEN_ERROR){
+				UART_PrintString(errorMsj);
+				//print error msj
+				command=SGEN_SUCCESS;
+			}
+			else if (command==SGEN_RESET){
+				UART_PrintString(welcomeMsj);
+				command=SGEN_SUCCESS;
+			}
 		}
     }
 }

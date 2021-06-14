@@ -45,8 +45,9 @@ void UART_Init(uint8_t baud_rate,uint8_t TxEnable,uint8_t RxEnable){
 	}
 	if(RxEnable){
 		SerialPort_RX_Enable();
+		SerialPort_RX_Interrupt_Enable();	
 	}
-	SerialPort_RX_Interrupt_Enable();	
+	
 }
 
 /*
@@ -88,14 +89,18 @@ void UART_Write_Char_To_Buffer(const char data)
 	}
 	else
 	{
-		// Write buffer is full --> TO-DO checkeo del error
+		// Write buffer is full --> TO-DO a futuro: manejos de error de librería
 		Error_code= ERROR_UART_FULL_BUFF;
 	}
 }
 
- char* UART_GetString(){
+char* UART_GetString(){
 	strcpy(RX_Buf_Cpy,RX_Buffer);
 	return RX_Buf_Cpy; //envio la copia del buffer
+}
+
+unsigned char UART_Error_Full_Buffer(){
+	return Error_code == ERROR_UART_FULL_BUFF;
 }
 
 unsigned char UART_HayString(){
@@ -111,11 +116,13 @@ unsigned char UART_HayString(){
 ISR (USART_RX_vect){
 	volatile unsigned char dato=SerialPort_Recive_Data();
 	if(dato!='\r'){
-		RX_Buffer[RX_Index++%RX_BUFFER_LENGTH] = dato;
-		#ifdef ECO_DEBUG
-		eco=1;
-		SerialPort_TX_Interrupt_Enable();
-		#endif
+		if(RX_Index<RX_BUFFER_LENGTH-1){
+			RX_Buffer[RX_Index++] = dato;
+			#ifdef ECO_DEBUG
+			eco=1;
+			SerialPort_TX_Interrupt_Enable();
+			#endif	
+		}
 	}
 	else{
 		RX_Buffer[RX_Index++]='\0';
@@ -130,7 +137,7 @@ ISR (USART_RX_vect){
 ISR(USART_UDRE_vect){
 	#ifdef ECO_DEBUG
 	if(eco){
-		SerialPort_Send_Data(RX_Buffer[(RX_Index-1)%RX_BUFFER_LENGTH]);
+		SerialPort_Send_Data(RX_Buffer[(RX_Index-1)]);
 		eco=0;
 		SerialPort_TX_Interrupt_Disable();
 	}
@@ -144,6 +151,7 @@ ISR(USART_UDRE_vect){
 			imprimiendoMensaje=0;
 			TXindice_lectura=0;
 			TXindice_escritura=0;
+			Error_code = ERROR_UART_NONE; //al reiniciarse el buffer ya no hay errores (igual no manejamos esto)
 			SerialPort_TX_Interrupt_Disable();
 			//SerialPort_RX_Interrupt_Enable(); //podriamos deshabilitar y habilitar lectura de teclado mientras se escribe msj
 		}

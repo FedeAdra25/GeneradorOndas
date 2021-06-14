@@ -32,7 +32,7 @@ void TIMERCONFIG_Init(uint8_t mode, uint8_t prescaler){
 	OCR1A=BASE_FREQ; //La librería setea el registro OCR1A base
 }
 
-void TIMERCONFIG_SetOCR1A(uint16_t value){
+void TIMERCONFIG_SetTopOnCTC(uint16_t value){
 	OCR1A = value;
 }
 
